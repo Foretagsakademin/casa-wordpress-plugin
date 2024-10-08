@@ -1,0 +1,11 @@
+.github
+.git
+.distignore
+.gitignore
+.eslintrc.js
+.stylelintrc
+.idea
+compile-plugin.sh
+node_modules/*
+vendor/bin/*
+vendor/nesbot/carbon/bin/*
