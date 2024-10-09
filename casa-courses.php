@@ -12,7 +12,7 @@
  * Description:       Connect your Casa installation to your WordPress installation. With the plugin you will be able to list all of your templates and events. Your visitors will be able to book themselves on events with available seats.
  * Version:           1.0.1
  * Author:            foretagsakademincasa
- * Author URI:        https://www.foretagsakademin.se
+ * Author URI:        https://www.foretagsakademin.se/casa
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       casa-courses

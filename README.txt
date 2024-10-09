@@ -1,6 +1,6 @@
 === CASA Courses ===
 Contributors: foretagsakademincasa
-Donate link: https://www.foretagsakademin.se
+Donate link: https://www.foretagsakademin.se/casa
 Tags: courses, administration, booking, participants, events
 Requires at least: 6.4
 Tested up to: 6.6.2
