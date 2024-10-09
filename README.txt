@@ -1,7 +1,7 @@
 === CASA Courses ===
 Contributors: foretagsakademincasa
 Donate link: https://www.foretagsakademin.se
-Tags: courses, casa, administration
+Tags: courses, administration, booking, participants, events
 Requires at least: 6.4
 Tested up to: 6.6.2
 Requires PHP: 8.1
@@ -49,6 +49,10 @@ Terms and conditions can be found [here](https://developers.google.com/fonts/ter
 
 This plugin uses Google captcha which connects to the following endpoint: https://www.google.com/recaptcha/api.js when
 verifying captcha requirements. Terms and conditions can be found [here](https://policies.google.com/terms?hl=en).
+
+The plugin is dependent on you having an account and subscription to the [Casa administration platform](https://www.foretagsakademin.se/casa).
+Without a subscription and an API key to Casa administration platform, the plugin will not work. For terms of
+subscription please contact [Företagsakademin](https://www.foretagsakademin.se/casa).
 
 == Installation ==
 
