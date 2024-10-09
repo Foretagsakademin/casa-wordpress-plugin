@@ -10,7 +10,7 @@
  * Plugin Name:       Casa Courses
  * Plugin URI:        https://github.com/Foretagsakademin/casa-wordpress-plugin.git
  * Description:       Connect your Casa installation to your WordPress installation. With the plugin you will be able to list all of your templates and events. Your visitors will be able to book themselves on events with available seats.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            foretagsakademincasa
  * Author URI:        https://www.foretagsakademin.se
  * License:           GPL-2.0+
@@ -32,7 +32,7 @@ use Carbon\Carbon;
 /**
  * Current plugin version.
  */
-define( 'CASA_COURSES_VERSION', '1.0.0' );
+define( 'CASA_COURSES_VERSION', '1.0.1' );
 
 define( 'CASA_COURSES_API', '/api/v1/public/' );
 define( 'CASA_COURSES_PROJECT_API', CASA_COURSES_API . 'projects/' );
