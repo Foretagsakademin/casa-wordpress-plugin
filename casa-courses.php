@@ -1,24 +1,17 @@
 <?php
 
 /**
- *
- * @link              https://github.com/Foretagsakademin/casa-wordpress-plugin.git
- * @since             1.0.0
- * @package           casa_courses
- *
- * @wordpress-plugin
- * Plugin Name:       Casa Courses
- * Plugin URI:        https://github.com/Foretagsakademin/casa-wordpress-plugin.git
- * Description:       Connect your Casa installation to your WordPress installation. With the plugin you will be able to list all of your templates and events. Your visitors will be able to book themselves on events with available seats.
- * Version:           1.0.1
- * Author:            foretagsakademincasa
- * Author URI:        https://www.foretagsakademin.se/casa
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       casa-courses
- * Domain Path:       /languages
+ * Plugin Name: Casa Courses
+ * Plugin URI: https://github.com/Foretagsakademin/casa-wordpress-plugin.git
+ * Description: Connect your Casa installation to your WordPress installation. With the plugin you will be able to list all of your templates and events. Your visitors will be able to book themselves on events with available seats.
+ * Version: 1.0.2
  * Requires at least: 6.4
- * Requires PHP:      8.1
+ * Requires PHP: 8.1
+ * Author: foretagsakademincasa
+ * Author URI: https://www.foretagsakademin.se/casa
+ * Text Domain: casa-courses
+ * Domain Path: /languages
+ * License: GPL-2.0+
  */
 
 // If this file is called directly, abort.
@@ -32,7 +25,7 @@ use Carbon\Carbon;
 /**
  * Current plugin version.
  */
-define( 'CASA_COURSES_VERSION', '1.0.1' );
+define( 'CASA_COURSES_VERSION', '1.0.2' );
 
 define( 'CASA_COURSES_API', '/api/v1/public/' );
 define( 'CASA_COURSES_PROJECT_API', CASA_COURSES_API . 'projects/' );
