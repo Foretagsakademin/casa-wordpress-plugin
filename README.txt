@@ -3,9 +3,9 @@ Contributors: foretagsakademincasa
 Donate link: https://www.foretagsakademin.se/casa
 Tags: courses, administration, booking, participants, events
 Requires at least: 6.4
-Tested up to: 6.7
+Tested up to: 6.7.2
 Requires PHP: 8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ The plugin is dependent on you having an account and subscription to the [Casa a
 6. Add your casa domain and your API key to the plugin settings.
 
 == Changelog ==
+
+= 1.0.3 =
+* Fix bug in date handling
 
 = 1.0.2 =
 * Fix translation loading for WordPress 6.7

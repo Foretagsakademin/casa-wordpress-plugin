@@ -18,10 +18,12 @@ if ( !function_exists( 'casa_date_formatter' ) ) {
      */
     function casa_date_formatter( Carbon $start_date, Carbon $end_date ): string
     {
-        if ( $start_date->diffInDays( $end_date, false ) === 0 ) {
+        if ( $start_date->isSameDay( $end_date ) ) {
+            // Both dates are on the same calendar day
             $data = $start_date->isoFormat( 'D MMM HH:mm' ) . ' - ';
             $data .= $end_date->isoFormat( 'HH:mm' );
         } else {
+            // Dates span across multiple days
             $data = $start_date->isoFormat( 'D MMM' ) . ' - ';
             $data .= $end_date->isoFormat( 'D MMM' );
         }

@@ -613,14 +613,14 @@ class Casa_courses_Public
                             <?php foreach ( $sessions as $session ) :
                                 $time_now = Carbon::now()->timezone( $session->timezone ); ?>
                                 <?php if ( $time_now->diffInSeconds( $session->days[ 0 ]->start_date, false ) >= 0 ) : ?>
-                                <?php foreach ( $session->days as $days ) :
-                                    $start_date = Carbon::parse( $days->start_date )->timezone( $session->timezone );
-                                    $end_date = Carbon::parse( $days->end_date )->timezone( $session->timezone );
-                                    ?>
-                                    <?php echo esc_attr( casa_date_formatter( $start_date, $end_date ) ); ?>
-                                    <br/>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                                    <?php foreach ( $session->days as $days ) :
+                                        $start_date = Carbon::parse( $days->start_date )->timezone( $session->timezone );
+                                        $end_date = Carbon::parse( $days->end_date )->timezone( $session->timezone );
+                                        ?>
+                                        <?php echo esc_attr( casa_date_formatter( $start_date, $end_date ) ); ?>
+                                        <br/>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                             <?php if ( $venue_name ) : ?>
                                 <div class="venue"><?php echo esc_attr( $venue ) ?></div>
