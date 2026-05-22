@@ -244,7 +244,7 @@ class Casa_courses_Admin
     {
         $courses_count = wp_count_posts( Casa_Courses_Custom_Posttype_Courses::$post_type )->publish;
         $events_count = wp_count_posts( Casa_Courses_Custom_Posttype_Events::$post_type )->publish;
-        $areas_count = wp_count_terms( Casa_Courses_Custom_Taxonomy_Areas::$tax_type );
+        $areas_count = wp_count_terms( [ 'taxonomy' => Casa_Courses_Custom_Taxonomy_Areas::$tax_type ] );
         $allow_strong = array( "strong" => array() );
 
         /* translators: 1: number of course areas loaded */

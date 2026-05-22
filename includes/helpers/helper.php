@@ -72,12 +72,12 @@ if ( !function_exists( 'casa_event_message_status' ) ) {
     /**
      * Determines the status message for an event based on the given data.
      *
-     * @param mixed $data The data for the event.
+     * @param mixed $available_seats The data for the event.
      *
      * @return string The status message for the event. An empty string if no status message.
      * @since 1.0.0
      */
-    function casa_event_message_status( $available_seats ): string
+    function casa_event_message_status( mixed $available_seats ): string
     {
         if ( !isset( $available_seats ) ) {
             return '';
@@ -110,7 +110,7 @@ if ( !function_exists( 'casa_event_status' ) ) {
      * @return string The status of the CASA event. Possible values are "limited", "sold" and "bookable".
      * @since 1.0.0
      */
-    function casa_event_status( $data ): string
+    function casa_event_status( mixed $data ): string
     {
         if ( is_array( $data ) && ( !isset( $data[ 'available_seats' ] ) ) ) {
             return '';
@@ -145,7 +145,7 @@ if ( !function_exists( 'casa_404_page' ) ) {
         global $wp_query;
         $wp_query->set_404();
         status_header( 404 );
-        get_template_part( 404 );
+        get_template_part( '404' );
         exit();
     }
 }

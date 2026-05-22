@@ -35,7 +35,7 @@ class Casa_Api
      * @throws RuntimeException if the retrieval of companies is unsuccessful or the provided name is empty.
      * @since 1.0.0
      */
-    public static function get_company( $name ): stdClass
+    public static function get_company( string $name ): stdClass
     {
         $response = new stdClass();
         $response->status = "error";
@@ -211,7 +211,7 @@ class Casa_Api
      *                  - message: A message from the response, either an error message or the data.
      * @since 1.0.0
      */
-    private function decode_response( $response ): stdClass {
+    private function decode_response( mixed $response ): stdClass {
         $return_value = new stdClass();
         $return_value->success = false;
         $return_value->status = 500;

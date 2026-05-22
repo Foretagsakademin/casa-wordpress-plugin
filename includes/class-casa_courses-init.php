@@ -175,7 +175,7 @@ class Casa_Courses_Init
      * @return void
      * @since 1.0.0
      */
-    public function connect_event( $request ): void
+    public function connect_event( mixed $request ): void
     {
         if ( isset( $_POST[ 'ajax_nonce' ] ) && wp_verify_nonce( sanitize_text_field( wp_unslash ( $_POST[ 'ajax_nonce' ] ) ), 'wp_rest' ) ) {
             $sanitized_form_data = array();
@@ -276,7 +276,7 @@ class Casa_Courses_Init
      * @return void
      * @since 1.0.0
      */
-    public function get_company( $request ): void
+    public function get_company( mixed $request ): void
     {
         $company_name = sanitize_text_field( $request->get_param( 'company_name' ) );
 
@@ -364,67 +364,65 @@ class Casa_Courses_Init
     {
         add_action( 'wp_enqueue_scripts', function () {
             global $post, $wp;
-            
+
             if ( ( is_a( $post, 'WP_Post' ) && is_single() && Casa_Courses_Custom_Posttype_Courses::$post_type == get_post_type() ) || ( array_key_exists( 'pagename', $wp->query_vars ) && $wp->query_vars[ 'pagename' ] === 'courses' ) ) {
-                add_action('wp_print_styles', function() {
-                    $primary_color = get_option( 'casa_courses_primary' );
-                    $secondary_color = get_option( 'casa_courses_secondary' );
-                    $font = get_option( 'casa_courses_text_font' );
+                $primary_color = get_option( 'casa_courses_primary' );
+                $secondary_color = get_option( 'casa_courses_secondary' );
+                $font = get_option( 'casa_courses_text_font' );
 
-                    $price_head_color = get_option( 'casa_courses_detail_price_head_color' );
-                    $price_head_bg_color = get_option( 'casa_courses_detail_price_head_bg_color' );
-                    $price_head_border_color = get_option( 'casa_courses_detail_price_head_border_color' );
+                $price_head_color = get_option( 'casa_courses_detail_price_head_color' );
+                $price_head_bg_color = get_option( 'casa_courses_detail_price_head_bg_color' );
+                $price_head_border_color = get_option( 'casa_courses_detail_price_head_border_color' );
 
-                    $event_box_color = get_option( 'casa_courses_detail_event_color' );
-                    $event_box_bg_color = get_option( 'casa_courses_detail_event_bg_color' );
-                    $event_box_btn_color = get_option( 'casa_courses_detail_event_btn_color' );
-                    $event_box_btn_bg_color = get_option( 'casa_courses_detail_event_btn_bg_color' );
+                $event_box_color = get_option( 'casa_courses_detail_event_color' );
+                $event_box_bg_color = get_option( 'casa_courses_detail_event_bg_color' );
+                $event_box_btn_color = get_option( 'casa_courses_detail_event_btn_color' );
+                $event_box_btn_bg_color = get_option( 'casa_courses_detail_event_btn_bg_color' );
 
-                    $booking_btn_color = get_option( 'casa_courses_booking_btn_color' );
-                    $booking_btn_bg_color = get_option( 'casa_courses_booking_btn_bg_color' );
+                $booking_btn_color = get_option( 'casa_courses_booking_btn_color' );
+                $booking_btn_bg_color = get_option( 'casa_courses_booking_btn_bg_color' );
 
-                    $area_box_bg_color = get_option( 'casa_courses_area_box_bg_color' );
-                    $area_list_color = get_option( 'casa_courses_area_list_color' );
-                    $area_box_color = get_option( 'casa_courses_area_box_color' );
-                    $area_box_font_size = get_option( 'casa_courses_area_box_font_size' );
-                    $area_box_number = get_option( 'casa_courses_area_box_number_desktop' );
+                $area_box_bg_color = get_option( 'casa_courses_area_box_bg_color' );
+                $area_list_color = get_option( 'casa_courses_area_list_color' );
+                $area_box_color = get_option( 'casa_courses_area_box_color' );
+                $area_box_font_size = get_option( 'casa_courses_area_box_font_size' );
+                $area_box_number = get_option( 'casa_courses_area_box_number_desktop' );
 
-                    $price_position = get_option( 'casa_courses_price_text_position' );
+                $price_position = get_option( 'casa_courses_price_text_position' );
 
-                    $few_seats_left_color = get_option( 'casa_courses_few_seats_remaining_color' );
-                    $fully_booked_color = get_option( 'casa_courses_fully_booked_color' );
+                $few_seats_left_color = get_option( 'casa_courses_few_seats_remaining_color' );
+                $fully_booked_color = get_option( 'casa_courses_fully_booked_color' );
 
-                    $css = ':root {';
+                $css = ':root {';
 
-                    $css .= $font ? '--casa-font-family: ' . esc_attr( str_replace( "+", " ", $font ) ) . ', sans-serif;' : '';
-                    $css .= $primary_color ? '--casa-primary-color: ' . esc_attr( $primary_color ) . ';' : '';
-                    $css .= $secondary_color ? '--casa-secondary-color: ' . esc_attr( $secondary_color ) . ';' : '';
+                $css .= $font ? '--casa-font-family: ' . esc_attr( str_replace( "+", " ", $font ) ) . ', sans-serif;' : '';
+                $css .= $primary_color ? '--casa-primary-color: ' . esc_attr( $primary_color ) . ';' : '';
+                $css .= $secondary_color ? '--casa-secondary-color: ' . esc_attr( $secondary_color ) . ';' : '';
 
-                    $css .= $price_head_color ? '--casa-price-head-color: ' . esc_attr( $price_head_color ) . ';' : '';
-                    $css .= $price_head_bg_color ? '--casa-price-head-bg-color: ' . esc_attr( $price_head_bg_color ) . ';' : '';
-                    $css .= $price_head_border_color ? '--casa-price-head-border-color: ' . esc_attr( $price_head_border_color ) . ';' : '';
+                $css .= $price_head_color ? '--casa-price-head-color: ' . esc_attr( $price_head_color ) . ';' : '';
+                $css .= $price_head_bg_color ? '--casa-price-head-bg-color: ' . esc_attr( $price_head_bg_color ) . ';' : '';
+                $css .= $price_head_border_color ? '--casa-price-head-border-color: ' . esc_attr( $price_head_border_color ) . ';' : '';
 
-                    $css .= $event_box_color ? '--casa-event-box-color: ' . esc_attr( $event_box_color ) . ';' : '';
-                    $css .= $event_box_bg_color ? '--casa-event-box-bg-color: ' . esc_attr( $event_box_bg_color ) . ';' : '';
-                    $css .= $event_box_btn_color ? '--casa-event-box-btn-color: ' . esc_attr( $event_box_btn_color ) . ';' : '';
+                $css .= $event_box_color ? '--casa-event-box-color: ' . esc_attr( $event_box_color ) . ';' : '';
+                $css .= $event_box_bg_color ? '--casa-event-box-bg-color: ' . esc_attr( $event_box_bg_color ) . ';' : '';
+                $css .= $event_box_btn_color ? '--casa-event-box-btn-color: ' . esc_attr( $event_box_btn_color ) . ';' : '';
 
-                    $css .= $event_box_btn_bg_color ? '--casa-event-box-btn-bg-color: ' . esc_attr( $event_box_btn_bg_color ) . ';' : '';
-                    $css .= $booking_btn_color ? '--casa-booking-btn-color: ' . esc_attr( $booking_btn_color ) . ';' : '';
-                    $css .= $booking_btn_bg_color ? '--casa-booking-btn-bg-color: ' . esc_attr( $booking_btn_bg_color ) . ';' : '';
+                $css .= $event_box_btn_bg_color ? '--casa-event-box-btn-bg-color: ' . esc_attr( $event_box_btn_bg_color ) . ';' : '';
+                $css .= $booking_btn_color ? '--casa-booking-btn-color: ' . esc_attr( $booking_btn_color ) . ';' : '';
+                $css .= $booking_btn_bg_color ? '--casa-booking-btn-bg-color: ' . esc_attr( $booking_btn_bg_color ) . ';' : '';
 
-                    $css .= $area_box_bg_color ? '--casa-area-box-bg-color: ' . esc_attr( $area_box_bg_color ) . ';' : '';
-                    $css .= $area_list_color ? '--casa-area-list-color: ' . esc_attr( $area_list_color ) . ';' : '';
-                    $css .= $area_box_color ? '--casa-area-box-color: ' . esc_attr( $area_box_color ) . ';' : '';
-                    $css .= $area_box_font_size ? '--casa-area-box-font-size: ' . esc_attr( $area_box_font_size ) . 'px;' : '';
-                    $css .= $area_box_number ? '--casa-area-box-number: ' . esc_attr( $area_box_number ) . ';' : '';
-                    $css .= $price_position ? '--casa-price-position: ' . esc_attr( $price_position ) . ';' : '';
-                    $css .= $few_seats_left_color ? '--casa-few-seats-remaining-color: ' . esc_attr( $few_seats_left_color ) . ';' : '';
-                    $css .= $fully_booked_color ? '--casa-fully-booked-color: ' . esc_attr( $fully_booked_color ) . ';' : '';
+                $css .= $area_box_bg_color ? '--casa-area-box-bg-color: ' . esc_attr( $area_box_bg_color ) . ';' : '';
+                $css .= $area_list_color ? '--casa-area-list-color: ' . esc_attr( $area_list_color ) . ';' : '';
+                $css .= $area_box_color ? '--casa-area-box-color: ' . esc_attr( $area_box_color ) . ';' : '';
+                $css .= $area_box_font_size ? '--casa-area-box-font-size: ' . esc_attr( $area_box_font_size ) . 'px;' : '';
+                $css .= $area_box_number ? '--casa-area-box-number: ' . esc_attr( $area_box_number ) . ';' : '';
+                $css .= $price_position ? '--casa-price-position: ' . esc_attr( $price_position ) . ';' : '';
+                $css .= $few_seats_left_color ? '--casa-few-seats-remaining-color: ' . esc_attr( $few_seats_left_color ) . ';' : '';
+                $css .= $fully_booked_color ? '--casa-fully-booked-color: ' . esc_attr( $fully_booked_color ) . ';' : '';
 
-                    $css .= '}';
+                $css .= '}';
 
-                    $successful = wp_add_inline_style( $this->plugin_name . '-variables', $css );
-                });
+                wp_add_inline_style( $this->plugin_name . '-variables', $css );
 
                 add_action( 'wp_head', function() {
                     $font = get_option( 'casa_courses_text_font' );

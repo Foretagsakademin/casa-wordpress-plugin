@@ -377,7 +377,7 @@ class Casa_Courses_Worker_Custom_Post_Events
      * @return stdClass The response message from the API.
      * @since 1.0.0
      */
-    public static function connect_participant( array $data, $token ): stdClass
+    public static function connect_participant( array $data, mixed $token ): stdClass
     {
         $status = $data[ 'status' ];
         unset( $data[ 'status' ] );
