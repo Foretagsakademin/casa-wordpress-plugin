@@ -9,13 +9,14 @@ jobs:
   notify_start:
     runs-on: ubuntu-latest
     steps:
-      - name: Slack Notify Success
-        uses: slackapi/slack-github-action@v1.25.0
+      - name: Slack Notify Start
+        uses: slackapi/slack-github-action@v3
         with:
-          channel-id: 'C07HH3EP199'
-          # For posting a rich message using Block Kit
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             {
+              "channel": "C07HH3EP199",
               "blocks": [
                 {
                   "type": "section",
@@ -26,8 +27,6 @@ jobs:
                 }
               ]
             }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
   build:
     name: Build and deploy
@@ -35,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -57,13 +56,14 @@ jobs:
     needs: build
     if: always()
     steps:
-      - name: Notify on result
-        uses: slackapi/slack-github-action@v1.25.0
+      - name: Slack Notify End
+        uses: slackapi/slack-github-action@v3
         with:
-          channel-id: 'C07HH3EP199'
-          # Construct the payload dynamically based on the result of the 'build' job
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
           payload: |
             {
+              "channel": "C07HH3EP199",
               "attachments": [
                 {
                   "color": "${{ needs.build.result == 'success' && 'good' || 'danger' }}",
@@ -77,5 +77,3 @@ jobs:
                 }
               ]
             }
-        env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
