@@ -433,7 +433,7 @@ class Casa_Courses_Init
                     }
                 });
             }
-        } );
+        }, 20 );
     }
 
     /**
