@@ -99,6 +99,7 @@ if (!class_exists('BooMeta')) {
             $name     = strtolower($post);
 
             self::$meta_box[$name] = $meta_box;
+            $meta_box->register_meta();
         }
 
         /**
@@ -142,8 +143,10 @@ if (!class_exists('BooMeta')) {
             $this->define('Boo_Meta_LOCAL', 'boo_meta_box');
 
             // Define settings.
+            // Not translated: initialize() runs at plugin load, before init,
+            // where translation calls would trigger _load_textdomain_just_in_time notices.
             $this->settings = array(
-                'name'                   => esc_attr__('Meta Fields', 'casa-courses'),
+                'name'                   => 'Meta Fields',
                 'version'                => Boo_Meta_VERSION,
                 'path'                   => Boo_Meta_PATH,
                 'file'                   => __FILE__,

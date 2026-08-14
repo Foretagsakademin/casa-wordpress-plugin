@@ -188,7 +188,9 @@ class Casa_courses
 
         $plugin_i18n = new Casa_courses_i18n();
 
-        $this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+        // Priority 1 so translations are available to the post type / taxonomy
+        // registrations that also run on init.
+        $this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain', 1 );
     }
 
     /**

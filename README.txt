@@ -3,9 +3,9 @@ Contributors: foretagsakademincasa
 Donate link: https://www.foretagsakademin.se/casa
 Tags: courses, administration, booking, participants, events
 Requires at least: 6.4
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,14 @@ The plugin is dependent on you having an account and subscription to the [Casa a
 6. Add your casa domain and your API key to the plugin settings.
 
 == Changelog ==
+
+= 1.0.5 =
+* Verified compatibility with WordPress 7.1
+* Fix admin assets loading on all admin screens
+* Fix capability check for the sync REST endpoint
+* Fix page structure and wp_footer() on block themes
+* Fix 404 page rendering on block themes
+* Fix meta field registration and translation loading timing
 
 = 1.0.4 =
 * Verified compatibility with WordPress 7.0

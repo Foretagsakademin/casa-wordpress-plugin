@@ -25,24 +25,11 @@ class Casa_courses_i18n
      */
     public function load_plugin_textdomain()
     {
-        $loaded = false;
         $locale = get_locale();
         $path = plugin_dir_path(dirname(__FILE__)) . 'languages/';
 
-        if ( str_contains( $locale, 'en' ) ) {
-            $loaded = true;
-        }
-
         if ( file_exists( $path . 'casa-courses-' . $locale . '.mo' ) ) {
-            $result = load_textdomain('casa-courses', $path . "casa-courses-$locale.mo", $locale);
-
-            if ( $result ) {
-                $loaded = true;
-            }
-        }
-
-        if ( !$loaded ) {
-            error_log( "Failed to load text domain for casa-courses and locale $locale." );
+            load_textdomain( 'casa-courses', $path . "casa-courses-$locale.mo", $locale );
         }
     }
 }

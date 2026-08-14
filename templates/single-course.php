@@ -16,7 +16,7 @@ $extra_price = 0;
 
 $title = get_the_title();
 
-$show_price = get_option( 'casa_courses_show_price', true );
+$show_price = get_option( 'casa_courses_show_price', 'true' );
 
 
 $description = @json_decode( get_post_meta( $post->ID, 'casa_courses_metadata_description', true ) );

@@ -19,6 +19,32 @@ class BooMetaFields
     }
 
     /**
+     * Register the post meta for all metabox fields.
+     *
+     * Must run during init (before the metabox is rendered) so the meta is
+     * known to WordPress. Uses register_post_meta() so the post type is used
+     * as the object subtype rather than the object type.
+     *
+     * @return void
+     */
+    public function register_meta()
+    {
+        foreach ( $this->fields as $metabox ) {
+            foreach ( $metabox[ 'metadata' ] ?? array () as $metadatum ) {
+                if ( empty( $metadatum[ 'slug' ] ) ) {
+                    continue;
+                }
+
+                register_post_meta( $this->post, $this->post . '_metadata_' . $metadatum[ 'slug' ], array (
+                    'single'       => true,
+                    'type'         => 'string',
+                    'show_in_rest' => true,
+                ) );
+            }
+        }
+    }
+
+    /**
      * Add meta boxes.
      *
      * @return void
@@ -83,11 +109,6 @@ class BooMetaFields
             $metadatum_id = $post_type_slug . '_metadata_' . $metadatum_slug;
             $metadatum_value = get_post_meta( $post->ID, $metadatum_id, true );
             $metadatum_value = $metadatum_value ? $metadatum_value : $metadatum_default;
-
-            register_meta( $post_type_slug, $metadatum_id, array (
-                'single' => true,
-                'show_in_rest' => true
-            ) );
 
             switch ( $metadatum_type ) {
 
@@ -187,7 +208,9 @@ class BooMetaFields
                     for ( $meta_i = 0; $meta_i < count( $metadatum[ 'fields' ] ); $meta_i++ ) {
 
                         if ( $serialize_data ) {
-                            $data = unserialize( $serialize_data );
+                            // get_post_meta() already unserializes stored arrays;
+                            // maybe_unserialize() handles both cases without warnings.
+                            $data = maybe_unserialize( $serialize_data );
 
                             if ( is_array( $data ) ) {
 

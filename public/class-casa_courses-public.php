@@ -109,8 +109,13 @@ class Casa_courses_Public
             );
 
             if ( !empty( $google_recaptcha ) ) {
-                $dependencies[] = 'casa_google_api';
                 $this->enqueue_recaptcha( $google_recaptcha );
+
+                // Only depend on the reCAPTCHA script when it was actually
+                // registered, otherwise WordPress silently drops this script.
+                if ( wp_script_is( 'casa_google_api', 'registered' ) ) {
+                    $dependencies[] = 'casa_google_api';
+                }
             }
 
             wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/casa-courses-public.js', $dependencies, $this->version, false );
@@ -1333,30 +1338,32 @@ class Casa_courses_Public
      */
     public function show_courses_header()
     {
+        if ( !wp_is_block_theme() ) {
+            get_header();
+            return;
+        }
 
-        if ( wp_is_block_theme() ) :
-            $header_option = get_option( 'casa_courses_header_template', true );
-            $footer_option = get_option( 'casa_courses_footer_template', true );
+        $header_option = get_option( 'casa_courses_header_template', '' );
+        $footer_option = get_option( 'casa_courses_footer_template', '' );
 
-            $header = do_blocks( $header_option );
-            self::$footer = do_blocks( $footer_option );
-        endif;
+        $header = do_blocks( is_string( $header_option ) ? $header_option : '' );
+        self::$footer = do_blocks( is_string( $footer_option ) ? $footer_option : '' );
         ?>
         <!DOCTYPE html>
-    <html lang="<?php echo esc_attr( get_locale() ) ?>">
+    <html <?php language_attributes(); ?>>
+    <head>
+        <meta charset="<?php bloginfo( 'charset' ); ?>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php wp_head(); ?>
-
+    </head>
     <body <?php body_class(); ?>>
         <?php wp_body_open(); ?>
         <a class="skip-link screen-reader-text"
            href="#wp--skip-link--target"><?php esc_attr_e( 'Skip to content', 'casa-courses' ) ?></a>
-        <?php if ( wp_is_block_theme() ) : ?>
         <header class="wp-block-template-part site-header">
             <?php echo wp_kses_post( $header ); ?>
         </header>
-    <?php else :
-        get_header();
-    endif;
+        <?php
     }
 
     /**
@@ -1371,6 +1378,7 @@ class Casa_courses_Public
         else :
 
             echo wp_kses_post( self::$footer );
+            wp_footer();
             echo "</body></html>";
         endif;
     }

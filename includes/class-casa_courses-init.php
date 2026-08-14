@@ -154,7 +154,7 @@ class Casa_Courses_Init
             register_rest_route( 'casa-courses/v1', '/sync', array (
                 'methods'             => WP_REST_Server::EDITABLE,
                 'permission_callback' => function ( $res ) {
-                    return !!wp_verify_nonce( sanitize_text_field( wp_unslash ( $_POST['ajax_nonce'] ?? '' ) ), 'wp_rest' ) && ( is_user_logged_in() || current_user_can( 'manage_options' ) );
+                    return !!wp_verify_nonce( sanitize_text_field( wp_unslash ( $_POST['ajax_nonce'] ?? '' ) ), 'wp_rest' ) && current_user_can( 'manage_options' );
                 },
                 'callback'            => fn ( $req ) => $this->get_sync( $req ),
             ) );

@@ -66,9 +66,37 @@ class Casa_courses_Admin
     }
 
     /**
-     * Enqueues the styles for the plugin.
+     * Determines whether the given admin screen belongs to this plugin.
      *
-     * This function is provided for demonstration purposes only.
+     * Assets are only needed on the plugin settings pages, the course/event
+     * post edit screens and the course areas taxonomy screens.
+     *
+     * @param string $hook_suffix The hook suffix passed to admin_enqueue_scripts.
+     *
+     * @return bool
+     * @since 1.0.5
+     */
+    private function is_plugin_screen( string $hook_suffix ): bool
+    {
+        if ( str_contains( $hook_suffix, 'casa-courses-plugin' ) ) {
+            return true;
+        }
+
+        $screen = get_current_screen();
+
+        if ( !$screen ) {
+            return false;
+        }
+
+        if ( in_array( $screen->post_type, array ( Casa_Courses_Custom_Posttype_Courses::$post_type, Casa_Courses_Custom_Posttype_Events::$post_type ), true ) ) {
+            return true;
+        }
+
+        return $screen->taxonomy === Casa_Courses_Custom_Taxonomy_Areas::$tax_type;
+    }
+
+    /**
+     * Enqueues the styles for the plugin.
      *
      * An instance of this class should be passed to the run() function
      * defined in Casa_courses_Loader as all the hooks are defined
@@ -78,23 +106,16 @@ class Casa_courses_Admin
      * between the defined hooks and the functions defined in this
      * class.
      *
+     * @param string $hook_suffix The hook suffix for the current admin screen.
+     *
      * @return void
      * @since 1.0.0
      */
-    public function enqueue_styles(): void
+    public function enqueue_styles( string $hook_suffix = '' ): void
     {
-
-        /**
-         * This function is provided for demonstration purposes only.
-         *
-         * An instance of this class should be passed to the run() function
-         * defined in Casa_courses_Loader as all the hooks are defined
-         * in that particular class.
-         *
-         * The Casa_courses_Loader will then create the relationship
-         * between the defined hooks and the functions defined in this
-         * class.
-         */
+        if ( !$this->is_plugin_screen( $hook_suffix ) ) {
+            return;
+        }
 
         wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/casa-courses-admin.css', array (), $this->version, 'all' );
         wp_enqueue_style( 'wp-color-picker' );
@@ -152,11 +173,17 @@ class Casa_courses_Admin
      * between the defined hooks and the functions defined in this
      * class.
      *
+     * @param string $hook_suffix The hook suffix for the current admin screen.
+     *
      * @return void
      * @since 1.0.0
      */
-    public function enqueue_scripts(): void
+    public function enqueue_scripts( string $hook_suffix = '' ): void
     {
+        if ( !$this->is_plugin_screen( $hook_suffix ) ) {
+            return;
+        }
+
         wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/casa-courses-admin.js', array ( 'jquery' ), $this->version, false );
         wp_enqueue_script( 'jquery-validation', plugin_dir_url( __FILE__ ) . 'js/jquery-validate-min.js', array (
             'jquery',

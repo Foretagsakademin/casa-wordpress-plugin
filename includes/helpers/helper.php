@@ -145,7 +145,15 @@ if ( !function_exists( 'casa_404_page' ) ) {
         global $wp_query;
         $wp_query->set_404();
         status_header( 404 );
-        get_template_part( '404' );
+        nocache_headers();
+
+        // get_query_template() resolves both classic theme 404.php files and
+        // block theme 404 templates (via the template canvas).
+        $template = get_query_template( '404' );
+
+        if ( $template ) {
+            include $template;
+        }
         exit();
     }
 }

@@ -166,18 +166,16 @@ class Casa_Courses_Custom_Posttype_Courses
     public static function register_post_type_template(): void
     {
 
-        add_filter( 'post_type_link', function ( $post_link, $id = 0 ) {
-            $post = get_post( $id );
-
-            if ( is_object( $post ) ) {
+        add_filter( 'post_type_link', function ( $post_link, $post ) {
+            if ( $post instanceof WP_Post && $post->post_type === self::$post_type ) {
                 $terms = wp_get_object_terms( $post->ID, 'casa_courses_areas' );
 
-                if ( $terms ) {
+                if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
                     return str_replace( '%area%', $terms[ 0 ]->slug, $post_link );
                 }
             }
             return $post_link;
-        }, 1, 3 );
+        }, 1, 2 );
 
 
         add_filter( 'single_template', function ( $single ) {
