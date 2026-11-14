@@ -1,6 +1,21 @@
 (function ($) {
   "use strict";
 
+  function syncMessage(type, message) {
+    const el = $("<span>").addClass(`alert_message ${type}`);
+
+    String(message ?? "")
+      .split(/<br\s*\/?>/i)
+      .forEach((line, i) => {
+        if (i > 0) {
+          el.append(document.createElement("br"));
+        }
+        el.append(document.createTextNode(line));
+      });
+
+    return el;
+  }
+
   $(document).ready(function () {
     /** tabs */
     $(".com-tab-group li a").on("click", function (e) {
@@ -47,13 +62,11 @@
         },
         success: (response) => {
           let message = JSON.parse(response.data.message);
-          $(this).after(
-            $('<span class="alert_message success">').text(message)
-          );
+          $(this).after(syncMessage("success", message));
         },
         error: (response) => {
           let message = JSON.parse(response.data.message);
-          $(this).after($('<span class="alert_message error">').text(message));
+          $(this).after(syncMessage("error", message));
         },
         complete: () => {
           $(this).prop("disabled", false);
