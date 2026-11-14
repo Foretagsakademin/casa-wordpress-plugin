@@ -48,12 +48,12 @@
         success: (response) => {
           let message = JSON.parse(response.data.message);
           $(this).after(
-            `<span class="alert_message success">${message}</span>`
+            $('<span class="alert_message success">').text(message)
           );
         },
         error: (response) => {
           let message = JSON.parse(response.data.message);
-          $(this).after(`<span class="alert_message error">${message}</span>`);
+          $(this).after($('<span class="alert_message error">').text(message));
         },
         complete: () => {
           $(this).prop("disabled", false);
