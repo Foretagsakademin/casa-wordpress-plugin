@@ -1,9 +1,29 @@
 (function ($) {
   "use strict";
 
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function statusMessageElement(html) {
+    const doc = new DOMParser().parseFromString(String(html ?? ""), "text/html");
+    const source = doc.body.querySelector("p");
+
+    if (!source) {
+      return null;
+    }
+
+    return $("<p>").attr("class", source.className).text(source.textContent);
+  }
+
   $(function () {
     $("#booking_event_date").on("change", function () {
-      const el = $(this).find(`option[data-id="${$(this).val()}"]`);
+      const el = $(this).find("option:selected");
       const form = $("#fa-book__form");
 
       if (el) {
@@ -18,7 +38,9 @@
           .data("status", $(el).data("status"))
           .data("max-participants", $(el).data("max-participants"));
 
-        $("#event_status_message").html($(el).data("status-message"));
+        $("#event_status_message")
+          .empty()
+          .append(statusMessageElement($(el).data("status-message")));
 
         update_event_desc({
           title: $(el).data("name"),
@@ -46,8 +68,8 @@
     }
 
     function update_event_desc(param) {
-      $(".js-event__date-title").html(param["title"]);
-      $(".js-event__date-start").html(param["date"]);
+      $(".js-event__date-title").text(param["title"]);
+      $(".js-event__date-start").text(param["date"]);
     }
 
     /**
@@ -288,7 +310,7 @@
         }
       } else {
         el_alert.append(
-          `<p class="alert ${alert_class}" style="">${response.message}</p>`
+          `<p class="alert ${alert_class}">${escapeHtml(response.message)}</p>`
         );
       }
 
@@ -373,7 +395,7 @@
 
             el_alert.show();
             el_alert.html(
-                `<p class="alert alert-success">${data.message}</p>`
+                `<p class="alert alert-success">${escapeHtml(data.message)}</p>`
             );
             reset_form();
             $(el_form).find(".submit").addClass("disabled").prop("disabled", true);
@@ -419,7 +441,7 @@
       grecaptcha.reset();
 
       $(".alert-message").append(
-        `<p class="alert alert-danger">Token: ${message[0]}</p>`
+        `<p class="alert alert-danger">Token: ${escapeHtml(message[0])}</p>`
       );
     }
 
@@ -470,19 +492,19 @@
         let html = "";
 
         if (e?.email && e?.email.length > 0) {
-          html += `<li>${labels.email}: ${e.email}</li>`;
+          html += `<li>${escapeHtml(labels.email)}: ${escapeHtml(e.email)}</li>`;
         }
 
         if (e?.cell_phone_number && e?.cell_phone_number.length > 0) {
-          html += `<li>${labels.phone}: ${e.cell_phone_number}</li>`;
+          html += `<li>${escapeHtml(labels.phone)}: ${escapeHtml(e.cell_phone_number)}</li>`;
         }
 
         if (e?.participant_name && e?.participant_name.length > 0) {
-          html += `<li>${labels.name}: ${e.participant_name}</li>`;
+          html += `<li>${escapeHtml(labels.name)}: ${escapeHtml(e.participant_name)}</li>`;
         }
 
         if (e?.status && e?.status.length > 0) {
-          html += `<li>${labels.status}: ${labels[e.status]}</li>`;
+          html += `<li>${escapeHtml(labels.status)}: ${escapeHtml(labels[e.status])}</li>`;
         }
 
         template = template.replaceAll("{%items%}", html);
@@ -505,11 +527,11 @@
           const el_invalid = el.siblings(`.invalid-feedback`);
 
           $(el).addClass("is-invalid");
-          $(el_invalid).html(message[e][0]);
+          $(el_invalid).text(message[e][0]);
         }
       } else {
         $(".alert-message").append(
-          `<p class="alert alert-danger">Company: ${message[0]}</p>`
+          `<p class="alert alert-danger">Company: ${escapeHtml(message[0])}</p>`
         );
       }
     }
@@ -526,11 +548,11 @@
         for (let e in message) {
           if (Array.isArray(message[e])) {
             $(".alert-message").append(
-              `<p class="alert alert-danger">${message[e][0]}</p>`
+              `<p class="alert alert-danger">${escapeHtml(message[e][0])}</p>`
             );
           } else {
             $(".alert-message").append(
-              `<p class="alert alert-danger">Participants: ${message[0]}</p>`
+              `<p class="alert alert-danger">Participants: ${escapeHtml(message[0])}</p>`
             );
           }
         }
@@ -550,7 +572,7 @@
             const el_invalid = el.siblings(`.invalid-feedback`);
 
             $(el).addClass("is-invalid");
-            $(el_invalid).html(item["participant"][e][0]);
+            $(el_invalid).text(item["participant"][e][0]);
           }
         }
 
@@ -559,7 +581,7 @@
             .find(`[name^="dietary_preference"]`)
             .addClass("is-invalid")
             .siblings(`.invalid-feedback`)
-            .html(item["dietary_preference"][0]);
+            .text(item["dietary_preference"][0]);
         }
       }
     }
